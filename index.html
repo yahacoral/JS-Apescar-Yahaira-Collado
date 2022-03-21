@@ -278,20 +278,16 @@
         <!-- Login Content -->
         <div id="login" class="tab">
 
-          <form id="registrarDatos" name="registrarDatos"  class="login-form" action="#" method="post">
-            <fieldset>
+          <form id="validarDatos" class="login-form" action="" method="POST">
+
               <div class="field">
-                <label for="password"><b>Correo Electrónico</b></label>
-                <input type="text" id="correo" name="correo" class="validate[required,custom[email]]"
-                data-errormessage-value-missing="Este campo es obligatorio"
-                data-errormessage-custom-error="Ejemplo: usuario@mail.com" value="" placeholder="Ingresar correo electrónico">
+                <label for="email"><b>Correo Electrónico</b></label>
+                <input type="text" id="email" name="email" placeholder="Ingresar correo electrónico">
               </div>
         
               <div class="field">
                 <label for="password"><b>Contraseña</b></label>
-                <input type="password" id="password" name="password" class="validate[required]"
-                data-errormessage-value-missing="Este campo es obligatorio"
-                value="" placeholder="Ingresar contraseña">
+                <input type="password" id="password" name="password" placeholder="Ingresar contraseña">
               </div>
               
               <!-- Remember me -->
@@ -300,13 +296,13 @@
                 </label>
                 
               <!-- Login Button -->
-              <input type="submit" value="Iniciar Sesión" class="login-btn ">
+              <button type="submit" class="login-btn">Iniciar Sesión</button>
             
               <!-- Forgot Password -->
              <span class="password"><a href="#">¿Olvidaste tu contraseña?</a></span>
 
+             <p class="warnings" id="warnings"></p>
 
-            </fieldset>
           </form>
         </div>
 

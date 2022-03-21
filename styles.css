@@ -388,7 +388,7 @@ img {
 
 /* Login/Register Modal */
 
-.login-form fieldset {
+.login-form {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -408,16 +408,14 @@ input[type="password"] {
 
 /* Button */
 .login-btn {
-  text-align: center;
   background-color: #dc3545;
   color: white;
   margin: 1rem auto;
-  width: 9rem;
-  height: 2.5rem;
+  padding: 0.5rem 1rem;
   border-radius: 0.5rem;
   border: none;
+  outline: none;
   cursor: pointer;
-  font-weight: 500;
 }
 
 .login-btn:hover {
@@ -438,6 +436,14 @@ span.password a:hover {
   font-weight: 500;
 }
 
+.warnings {
+  width: 80%;
+  text-align: center;
+  margin: auto;
+  color: #dc3545;
+  padding-top: 20px;
+}
+
 /* Modal (background) */
 .modal-container {
   display: none;
@@ -449,13 +455,13 @@ span.password a:hover {
   height: 100%;
   background-color: rgb(0, 0, 0);
   background-color: rgba(0, 0, 0, 0.4);
-  padding-top: 60px;
+  padding-top: 50px;
 }
 
 /* Modal Content/Box */
 .modal-box {
   background-color: #fefefe;
-  margin: 13rem auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  margin: 12rem auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
   width: 50vw;
   border-radius: 0.5rem;
 }
