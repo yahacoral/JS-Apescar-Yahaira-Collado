@@ -1,0 +1,337 @@
+<!-- Desafío: Incluyendo Librería SweetAlert 2-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda de pesca</title>
+    <link rel="icon" href="./assets/img/favicon.png">
+
+     <!--Custom Stylesheet-->
+    <link rel="stylesheet" href="./styles.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <!--Font Awesome-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+
+    <!-- Sweet Alert 2-->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!--jQuery Validation Engine -->
+    <!-- <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/jQuery-Validation-Engine/2.6.4/validationEngine.jquery.min.css"
+    integrity="sha256-dLfDnFtstI791pbYZLjLRY2JSQSoJ4t3Q3rw0cQLQr4=" crossorigin="anonymous" /> -->
+
+</head>
+<body>
+    <header class="header">
+
+       <!-- Ad-->
+       <div class="header__ad">
+        🚚 Despachos de Lunes a Viernes. Recibe tu pedido en 24 horas, si ordenas&nbsp;<b>antes de las 3PM.</b>
+       </div>
+
+      <!-- Main Header -->
+      <div class="main-header">
+
+        <!-- Logo -->
+        <a class="main-header__logo" href="#"><img src="./assets/img/logo.png" alt="brand logo"></a>
+
+        <span>
+        <!-- Login/Register Button -->
+        <button onclick="document.getElementById('modal').style.display='block'" style="width:auto;" >
+          <i class="fas fa-user"></i> Mi cuenta
+          <i class="fas fa-angle-down"></i>
+        </button>
+
+        <!-- Shopping Cart Button -->
+        <button class="main-header__btn" id="shopping-cart" onclick="displayShoppingCart()">
+          <i class="fas fa-shopping-cart"></i>  S/. <span></span>
+          <div class="count"></div>
+          <i class="fas fa-angle-down"></i>
+          </button>  
+       </span>       
+      </div>
+
+      <!-- Header Navigation -->
+      <nav class="header__nav">
+        <ul class="menu">
+          <li class="menu__item"><a href="#about" class="menu__link">NOSOTROS</a></li>
+          <li class="menu__item"><a href="#shop" class="menu__link">TIENDA</a></li>
+          <li class="menu__item"><a href="#fihing-lessons" class="menu__link">CLASES PESCA</a></li>
+          <li class="menu__item"><a href="#blog" class="menu__link">ARTÍCULOS</a></li>
+        </ul>
+      </nav>
+
+    </header>
+
+
+    <!-- Home -->
+    <div class="container-slider">
+        <div class="slider" id="slider">
+            <div class="slider__section">
+                <img src="./assets/img/img1.jpeg" alt="" class="slider__img">
+                <div class="slider__content">
+                    <p class="slider__title"> ENCUENTRA AQUÍ LO MEJOR PARA  </h2>
+                    <h2 class="slider__text" >PESCA DEPORTIVA</h2>
+                    <a href="#shop" class="slider__section-btn">COMPRAR AHORA</a>
+                </div>
+            </div>
+            <div class="slider__section">
+                <img src="./assets/img/img2.jpeg" alt="" class="slider__img">
+                <div class="slider__content">
+                    <p class="slider__title"> PESCA CON SEÑUELOS </p>
+                    <h2 class="slider__text" >TRUCOS</h2>
+                    <a href="#blog" class="slider__section-btn">ENTÉRATE MÁS</a>
+                </div>
+            </div>
+            <div class="slider__section">
+                <img src="./assets/img/img3.jpeg" alt="" class="slider__img">
+                <div class="slider__content">
+                    <p class="slider__title"> BLUE WIN</p>
+                    <h2 class="slider__text">SEA BASS 270</h2>
+                    <a href="#shop" class="slider__section-btn">ADQUIÉRELA AQUÍ</a>
+                </div>
+            </div>
+        </div>
+        <div class="slider__btn slider__btn--right" id="btn-right">&#62;</div>
+        <div class="slider__btn slider__btn--left" id="btn-left">&#60;</div>
+    </div>
+
+     <!-- About -->
+     <div id="about" class="about">
+       <h2 class="main-title">Somos aPescar.com</h2>
+       <p>Desde 1995, nuestro objetivo es ofrecerte la mejor experiencia de pesca deportiva, brindando asesoría de parte de pescadores experimentados en nuestras costas, combinando esa experiencia con equipos de marcas internacionales para que tus salidas de pesca sean las más exitosas.</p>
+     </div>
+
+    <!-- Shop -->
+    <div class="shop" id="shop">
+      
+      <!-- Products -->
+      <div class="products">
+        <h2 class="main-title">Los mejores productos</h2>
+        <p class="main-subtitle">Diferentes marcas reconocidas de cañas, carretes y accesorios.</p>
+
+        <div class="row" id="cards"></div>
+      </div>
+
+      <!-- Products Template -->
+      <template id="template-card">
+        <div class="col-12 mb-2 col-md-4">
+          <div class="card">
+              <img src="" alt="" class="card-img-top">
+            <div class="card-body">
+              <h5>Titulo</h5>
+              <span class="flex-row">S/.&nbsp; <p>precio</p></span>
+              <button class="btn btn-danger" onclick="displayShoppingCart()">Comprar</button>
+            </div>
+          </div>
+        </div>
+      </template>
+      
+      <!-- Shopping Cart Resume -->
+      <div id="shopping-cart__resume">
+
+        <div class="container">
+          <span class="container__head">
+            <h2>Mi carrito </h2>
+            <button class="close-btn" onclick="closeShoppingCart()">&times; CERRAR</button>
+          </span>
+          <br>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">SKU</th>
+                  <th scope="col">Producto</th>
+                  <th scope="col">#</th>
+                  <th scope="col">Acción</th>
+                  <th scope="co">Total</th>
+                </tr>
+              </thead>
+              <tbody id="items"></tbody>
+              <tfoot>
+                <tr id="footer">
+                  <th scope="row" colspan="5">Carrito vacío - comience a comprar!</th>
+                </tr>
+              </tfoot>
+            </table>
+        </div>
+
+        <template id="template-footer">
+            <th scope="row" colspan="2">Total a pagar:</th>
+            <td >10</td>
+            <td class="template-footer__btn"> 
+                <button class="btn btn-danger btn-sm btn-block" id="comprar-ahora">
+                  COMPRAR
+              </button>
+              <button class="btn btn-dark btn-sm btn-block" id="vaciar-carrito" onclick="carritoVacíoAlert()">
+                VACIAR
+            </button>
+            </td>
+            <td>S/.<span>5000</span></td>
+        </template>
+        
+        <template id="template-carrito">
+          <tr>
+            <th scope="row">id</th>
+            <td>Café</td>
+            <td>1</td>
+            <td class="w-5">
+                <button class="btn btn-danger btn-sm">
+                    +
+                </button>
+                <button class="btn btn-dark btn-sm">
+                    -
+                </button>
+            </td>
+            <td>S/.<span> 5000</span></td>
+          </tr>
+        </template>
+      </div>
+    </div>
+
+    <!-- Fishing Lessons -->
+    <div id="fishing-lessons" class="fishing-lessons">
+      <h2>Pescamos <br> Junto A ti.</h2>
+      <img src="" alt="">
+    </div>
+
+    <!-- Articles -->
+    <div id="blog" class="blog">
+      <h2 class="main-title">Guía de Pesca</h2>
+      <p class="main-subtitle">Te compartimos contenido útil de nuestros blogs de pesca favoritos.</p>
+      <div class="row" id="articles"></div>    
+    </div>
+
+    <!-- Articles Template -->
+    <template id="template-article" >
+      <div class="col-12 mb-2 col-md-4">
+        <div class="card">
+            <img src="" alt="" class="card-img-top" style="height: 13rem;">
+          <div class="card-body">
+            <h5>Titulo</h5>
+            <span class="flex-row">Fuente: &nbsp;<p>Fuente</p></span>
+            <a href="" class="btn btn-danger">Leer más</a>
+          </div>
+        </div>
+      </div>
+    </template>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="grid">
+        <div class="footer__about">
+          <h2>Somos aPescar.com</h2>
+          <p>Desde 1995, nuestro objetivo es ofrecerte la mejor experiencia de pesca deportiva, brindando asesoría de parte de pescadores experimentados en nuestras costas, combinando esa experiencia con equipos de marcas internacionales para que tus salidas de pesca sean las más exitosas.</p>
+        </div>
+
+        <nav class="footer__nav">
+          <h2>Información</h2>
+          <ul class="menu">
+            <li class="menu__item"><a href="#about" class="menu__link">Nosotros</a></li>
+            <li class="menu__item"><a href="#shop" class="menu__link">Tienda</a></li>
+            <li class="menu__item"><a href="#fihing-lessons" class="menu__link">Clases de pesca</a></li>
+            <li class="menu__item"><a href="#blog" class="menu__link">Artículos</a></li>
+          </ul>
+        </nav>
+
+        <div class="footer__info">
+          <h2>Atención</h2>
+         <ul>
+           <li> <b>Horario:</b>
+            Lunes a Viernes de 10am a 6pm
+            </li>
+            <li><b>Teléfonos:</b>
+              (01) 688 8X73 | (+51) 97X27X526
+              </li>
+              <li><b>Dirección:</b>
+                Random - Lima, Perú</li>
+         </ul>
+        </div>
+      </div>
+      <p>Todos los Derechos Reservados 2022</p>
+    </footer>
+
+    <!-- Contact -->
+    <div class="contact" id="contact">
+      <button class="close-whatsapp" onclick="closeWhatsapp()">&times;</button>
+      <a class="contact__text" href="https://wa.link/du6cc9" target="_blank">
+        <img src="./assets/img//whatsapp.png" alt="whatsapp icon">
+        <p>Haz tus consultas por <b>Whatsapp</b></p>
+      </a>
+    </div>
+
+    <!-- Login/Register Modal -->
+    <div id="modal" class="modal-container">
+
+      <!-- Close Button -->
+      <span onclick="document.getElementById('modal').style.display='none'" class="close" title="Close Modal">&times;</span>
+
+      <div class="modal-box" >
+        
+        <!-- Tabs -->
+        <div class="modal-box__tabs">
+          <button class="tablink w3-red" onclick="openTab(event,'login')">Iniciar Sesión</button>
+
+          <button class="tablink" onclick="openTab(event,'signup')">Registrarme</button>
+        </div>
+
+        <!-- Login Content -->
+        <div id="login" class="tab">
+
+          <!-- <div id="resultadoValidacion">
+          </div> -->
+
+          <form id="registrarDatos" name="registrarDatos" action="#" method="post">
+            <fieldset>
+              <div class="fld">
+                <label for="password"><b>Correo Electrónico</b></label>
+                <input type="text" id="correo" name="correo" class="validate[required,custom[email]]"
+                data-errormessage-value-missing="Este campo es obligatorio"
+                data-errormessage-custom-error="Ejemplo: usuario@mail.com" value="" placeholder="Ingresar correo electrónico">
+              </div>
+        
+              <div class="fld">
+                <label for="password"><b>Contraseña</b></label>
+                <input type="password" id="password" name="password" class="validate[required]"
+                data-errormessage-value-missing="Este campo es obligatorio"
+                value="" placeholder="Ingresar contraseña">
+              </div>
+                
+              <div class="fld">
+                <input type="submit" value="Iniciar Sesión" class="login-btn ">
+            </div>
+    
+              <div class="flexbox">
+                <label>
+                  <input type="checkbox" checked="checked" name="remember"> Recordar cuenta
+                </label>
+                <span class="psw"><a href="#">¿Olvidaste tu contraseña?</a></span>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+
+        <!-- Sign Up Content -->
+        <div  id="signup" class="tab" style="display:none">
+          hola
+        </div>
+
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+
+    <!-- jQuery Validation Engine -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-Validation-Engine/2.6.4/jquery-1.8.2.min.js"
+        integrity="sha256-8j1LMJtydDqor+H4yYols+4xJG+lcsZtnYyxmCyuT7w=" crossorigin="anonymous"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-Validation-Engine/2.6.4/languages/jquery.validationEngine-es.min.js"
+        integrity="sha256-MeuxqxFPW1ASZACg9TcTHHIbkBuorhSxRvu2XZkDptM=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-Validation-Engine/2.6.4/jquery.validationEngine.min.js"
+        integrity="sha256-HbcATM0NJnF2rpBm+By+JrAikXdPlIujXNosIDzbllA=" crossorigin="anonymous"></script> -->
+</body>
+</html>
