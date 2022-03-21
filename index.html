@@ -17,13 +17,9 @@
     <!--Font Awesome-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
 
-    <!-- Sweet Alert 2-->
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    <!--jQuery Validation Engine -->
-    <!-- <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/jQuery-Validation-Engine/2.6.4/validationEngine.jquery.min.css"
-    integrity="sha256-dLfDnFtstI791pbYZLjLRY2JSQSoJ4t3Q3rw0cQLQr4=" crossorigin="anonymous" /> -->
+    <!-- Sweet Alert 2 including the Bootstrap 4 theme -->
+    <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-bootstrap-4/bootstrap-4.css" rel="stylesheet">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
 
 </head>
 <body>
@@ -214,7 +210,7 @@
           <div class="card-body">
             <h5>Titulo</h5>
             <span class="flex-row">Fuente: &nbsp;<p>Fuente</p></span>
-            <a href="" class="btn btn-danger">Leer más</a>
+            <a href="" class="btn btn-danger" target="_blank">Leer más</a>
           </div>
         </div>
       </div>
@@ -282,35 +278,34 @@
         <!-- Login Content -->
         <div id="login" class="tab">
 
-          <!-- <div id="resultadoValidacion">
-          </div> -->
-
-          <form id="registrarDatos" name="registrarDatos" action="#" method="post">
+          <form id="registrarDatos" name="registrarDatos"  class="login-form" action="#" method="post">
             <fieldset>
-              <div class="fld">
+              <div class="field">
                 <label for="password"><b>Correo Electrónico</b></label>
                 <input type="text" id="correo" name="correo" class="validate[required,custom[email]]"
                 data-errormessage-value-missing="Este campo es obligatorio"
                 data-errormessage-custom-error="Ejemplo: usuario@mail.com" value="" placeholder="Ingresar correo electrónico">
               </div>
         
-              <div class="fld">
+              <div class="field">
                 <label for="password"><b>Contraseña</b></label>
                 <input type="password" id="password" name="password" class="validate[required]"
                 data-errormessage-value-missing="Este campo es obligatorio"
                 value="" placeholder="Ingresar contraseña">
               </div>
-                
-              <div class="fld">
-                <input type="submit" value="Iniciar Sesión" class="login-btn ">
-            </div>
-    
-              <div class="flexbox">
-                <label>
-                  <input type="checkbox" checked="checked" name="remember"> Recordar cuenta
+              
+              <!-- Remember me -->
+                <label class="remember-account">
+                  <input type="checkbox" checked="checked" name="remember">&nbsp;Recordar cuenta
                 </label>
-                <span class="psw"><a href="#">¿Olvidaste tu contraseña?</a></span>
-              </div>
+                
+              <!-- Login Button -->
+              <input type="submit" value="Iniciar Sesión" class="login-btn ">
+            
+              <!-- Forgot Password -->
+             <span class="password"><a href="#">¿Olvidaste tu contraseña?</a></span>
+
+
             </fieldset>
           </form>
         </div>
@@ -325,13 +320,5 @@
 
     <script src="script.js"></script>
 
-    <!-- jQuery Validation Engine -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-Validation-Engine/2.6.4/jquery-1.8.2.min.js"
-        integrity="sha256-8j1LMJtydDqor+H4yYols+4xJG+lcsZtnYyxmCyuT7w=" crossorigin="anonymous"></script>
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-Validation-Engine/2.6.4/languages/jquery.validationEngine-es.min.js"
-        integrity="sha256-MeuxqxFPW1ASZACg9TcTHHIbkBuorhSxRvu2XZkDptM=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-Validation-Engine/2.6.4/jquery.validationEngine.min.js"
-        integrity="sha256-HbcATM0NJnF2rpBm+By+JrAikXdPlIujXNosIDzbllA=" crossorigin="anonymous"></script> -->
 </body>
 </html>

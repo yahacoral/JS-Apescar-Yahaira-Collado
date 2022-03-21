@@ -1,3 +1,9 @@
+//TO DO
+// 1. agregar sign up modal
+// 2. boton comprar funcional e implementar alertas de sweet alert
+// 3. login y sign up funcional
+// 4. contenidos de about & fishing lessons 
+
 const cards = document.getElementById('cards')
 const articles = document.getElementById('articles')
 const items = document.getElementById('items')
@@ -172,13 +178,12 @@ const closeShoppingCart = () => {
 }
 
 // Carrito Vacío
-
 const carritoVacíoAlert = () => {
     Swal.fire(
-        'Carrito vacío',
-        '😔',
+        'Tu carrito está vacío',
+        '¡Continúa comprando!',
         'warning'
-      )
+      ) 
 }
 
 // Traer articles con Fetch Data
@@ -195,16 +200,12 @@ const mostrarArticles = data => {
         templateArticle.querySelector('h5').textContent = item.title
         templateArticle.querySelector('p').textContent = item.source
         templateArticle.querySelector('img').setAttribute("src", item.thumbnailUrl)
-        // templateArticle.querySelector('a').setAttribute("href", item.url)
+        templateArticle.querySelector('a').setAttribute("href", item.url)
         const clone = templateArticle.cloneNode(true)
         fragment.appendChild(clone)
     })
     articles.appendChild(fragment)
 }
-
-// TO DO: 
-// 1. Boton finalizar compra 
-// 3. Login / Register
 
 //Close Whatsapp
 const closeWhatsapp = () => {
@@ -281,8 +282,3 @@ const openTab = (evt, tabName) => {
     document.getElementById(tabName).style.display = "block";
     evt.currentTarget.className += " w3-red";
   }
-
-// jQuery Validation Engine
-// $(document).ready(() => {
-//     $('#registrarDatos').validationEngine();
-// });

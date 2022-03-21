@@ -388,6 +388,12 @@ img {
 
 /* Login/Register Modal */
 
+.login-form fieldset {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
 /* Inputs */
 input[type="text"],
 input[type="password"] {
@@ -400,15 +406,17 @@ input[type="password"] {
   outline: none;
 }
 
-/* Buttons */
+/* Button */
 .login-btn {
+  text-align: center;
   background-color: #dc3545;
   color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
+  margin: 1rem auto;
+  width: 9rem;
+  height: 2.5rem;
+  border-radius: 0.5rem;
   border: none;
   cursor: pointer;
-  width: 100%;
   font-weight: 500;
 }
 
@@ -418,24 +426,13 @@ input[type="password"] {
   border: 1px solid #dc3545;
 }
 
-/* Sign Up Button*/
-.signup-btn {
-  width: auto;
-  padding: 10px 18px;
-  color: white;
-  border: none;
-  cursor: pointer;
-  background-color: #1b5e9d;
+.password {
+  margin: 0 auto;
+  text-align: center;
 }
 
-.flexbox {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-span.psw a,
-span.psw a:hover {
+span.password a,
+span.password a:hover {
   color: #1b5e9d;
   text-decoration: none;
   font-weight: 500;
@@ -459,8 +456,8 @@ span.psw a:hover {
 .modal-box {
   background-color: #fefefe;
   margin: 13rem auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
-  border: 1px solid #888;
-  width: 80%;
+  width: 50vw;
+  border-radius: 0.5rem;
 }
 
 /* Tabs */
@@ -471,13 +468,18 @@ span.psw a:hover {
 
 .modal-box__tabs button {
   outline: none;
-  border: none;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  border-bottom: 5px solid #888;
   padding: 1rem 0;
+  margin-top: 0.5rem;
+  background-color: transparent;
+  font-size: 1rem;
 }
 
 .w3-red {
-  background-color: #1b5e9d;
-  color: white;
+  border-bottom: 5px solid red !important;
 }
 
 .tab {
