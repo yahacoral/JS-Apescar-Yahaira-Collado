@@ -1,0 +1,73 @@
+/* Mobile Devices */
+@media only screen and (max-width: 480px) {
+  .header__banner span,
+  .main-header,
+  .main-subtitle,
+  .footer p,
+  .footer li {
+    font-size: 0.85rem;
+  }
+
+  .header__banner-btn,
+  .main-title {
+    font-size: 1.5rem;
+  }
+
+  .header__nav .menu {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    font-size: 0.75rem;
+    padding: 0 2rem 1rem 2rem;
+  }
+
+  .header__nav .menu__item {
+    text-align: center;
+    margin: 0.25rem 0;
+  }
+
+  .about__brands {
+    display: block;
+  }
+
+  .about__brands {
+    max-width: 12rem;
+  }
+}
+
+/* Ipad, Tablets */
+@media only screen and (max-width: 768px) {
+  .footer .grid {
+    display: block;
+  }
+
+  .main-header {
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .main-header__logo img {
+    padding-bottom: 1.5rem;
+  }
+
+  .account {
+    padding-left: 0;
+  }
+
+  .about__brands {
+    width: 80%;
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
+
+/* Small Screens, laptops */
+@media only screen and (max-width: 1024px) {
+  .header__banner span {
+    padding: 0 1.5rem 0 0;
+  }
+
+  .about__brands {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+}

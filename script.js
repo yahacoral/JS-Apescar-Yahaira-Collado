@@ -1,48 +1,40 @@
-//TO DO
-// 1. agregar sign up modal
-// 2. boton comprar funcional e implementar alertas de sweet alert
-// 3. login y sign up funcional
-// 4. contenidos de about & fishing lessons 
-
 const cards = document.getElementById('cards')
 const articles = document.getElementById('articles')
 const items = document.getElementById('items')
 const footer = document.getElementById('footer')
-const shoppingCart = document.getElementById('shopping-cart') 
+const shoppingCartButton = document.getElementById('shopping-cart__btn') 
 const templateCard = document.getElementById('template-card').content
 const templateArticle = document.getElementById('template-article').content
 const templateFooter = document.getElementById('template-footer').content
-const templateCarrito = document.getElementById('template-carrito').content
+const templateShoppingCart = document.getElementById('template-shopping-cart').content
 const fragment = document.createDocumentFragment()
-let carrito= {}
+let shoppingCart= {}
 let store = {}
 
-
 // Events
-
 document.addEventListener('DOMContentLoaded', e => { fetchData() 
 
     //LocalStorage
-    localStorage.getItem('carrito') && (carrito = JSON.parse(localStorage.getItem('carrito'))) 
+    localStorage.getItem('shoppingCart') && (shoppingCart = JSON.parse(localStorage.getItem('shoppingCart')))
 
-    mostrarCarrito()
+    showShoppingCart()
 });
 
-cards.addEventListener('click', e => { addCarrito(e) });
-items.addEventListener('click', e => { btnAumentarDisminuir(e) })
+cards.addEventListener('click', e => { addItem(e) });
+items.addEventListener('click', e => { controlButtons(e) })
 
-// Traer productos con Fetch Data
+// Get products with Fetch Data
 const fetchData = async () => {
-    const respuesta = await fetch('./api/products.json');
-    const data = await respuesta.json()
-    mostrarCards(data)
+    const response = await fetch('./api/products.json');
+    const data = await response.json()
+    showCards(data)
 }
 
-// Mostrar Data
-const mostrarCards = data => {
+// Show Data
+const showCards = data => {
     data.forEach(item => {
         templateCard.querySelector('h5').textContent = item.title
-        templateCard.querySelector('p').textContent = item.precio
+        templateCard.querySelector('p').textContent = item.price
         templateCard.querySelector('img').setAttribute("src", item.thumbnailUrl)
         templateCard.querySelector('button').dataset.id = item.id
         const clone = templateCard.cloneNode(true)
@@ -51,134 +43,128 @@ const mostrarCards = data => {
     cards.appendChild(fragment)
 }
 
-//Agregar al carrito
-const addCarrito = e => {
-    e.target.classList.contains('btn-danger') &&  setCarrito(e.target.parentElement)
-
+//Add item to Shopping Cart
+const addItem = e => {
+    e.target.classList.contains('btn-danger') &&  setShoppingCart(e.target.parentElement)
     e.stopPropagation()
 }
 
-
-const setCarrito = item => {
-    const producto = {
+const setShoppingCart = item => {
+    const product = {
         title: item.querySelector('h5').textContent,
-        precio: item.querySelector('p').textContent,
+        price: item.querySelector('p').textContent,
         id: item.querySelector('button').dataset.id,
-        cantidad: 1
+        quantity: 1
     }
 
-    carrito.hasOwnProperty(producto.id) && (producto.cantidad = carrito[producto.id].cantidad + 1)
+    shoppingCart.hasOwnProperty(product.id) && (product.quantity = shoppingCart[product.id].quantity + 1)
 
-    carrito[producto.id] = { ...producto }
+    shoppingCart[product.id] = { ...product }
     
-    mostrarCarrito()
+    showShoppingCart()
 }
 
-
-const mostrarCarrito = () => {
+const showShoppingCart = () => {
     items.innerHTML = ''
 
-    Object.values(carrito).forEach(producto => {
-        templateCarrito.querySelector('th').textContent = producto.id
-        templateCarrito.querySelectorAll('td')[0].textContent = producto.title
-        templateCarrito.querySelectorAll('td')[1].textContent = producto.cantidad
-        templateCarrito.querySelector('span').textContent = producto.precio * producto.cantidad
+    Object.values(shoppingCart).forEach(product => {
+        templateShoppingCart.querySelector('th').textContent = product.id
+        templateShoppingCart.querySelectorAll('td')[0].textContent = product.title
+        templateShoppingCart.querySelectorAll('td')[1].textContent = product.quantity
+        templateShoppingCart.querySelector('span').textContent = product.price * product.quantity
         
-        //botones
-        templateCarrito.querySelector('.btn-danger').dataset.id = producto.id
-        templateCarrito.querySelector('.btn-dark').dataset.id = producto.id
+        //Quantity control buttons
+        templateShoppingCart.querySelector('.btn-danger').dataset.id = product.id
+        templateShoppingCart.querySelector('.btn-dark').dataset.id = product.id
 
-        const clone = templateCarrito.cloneNode(true)
+        const clone = templateShoppingCart.cloneNode(true)
         fragment.appendChild(clone)
     })
     items.appendChild(fragment)
-    mostrarFooter()
-    mostrarShoppingCart()
+    showFooter()
+    showShoppingCartStatus()
 
     //LocalStorage
-    localStorage.setItem('carrito', JSON.stringify(carrito))
+    localStorage.setItem('shoppingCart', JSON.stringify(shoppingCart))
 }
 
-//Mostrar Shopping Cart Status
-const mostrarShoppingCart = () => {
+//Show Shopping Cart Status
+const showShoppingCartStatus = () => {
 
-    if (Object.keys(carrito).length === 0) {
-        shoppingCart.querySelector('div').textContent = `0`
-        shoppingCart.querySelector('span').textContent = `0.00`
+    if (Object.keys(shoppingCart).length === 0) {
+        shoppingCartButton.querySelector('div').textContent = `0`
+        shoppingCartButton.querySelector('span').textContent = `0.00`
         return
     } else {
-        //reutilizar cantidad y total a pagar
-        shoppingCart.querySelector('div').textContent = store["itemsTotal"]
-        shoppingCart.querySelector('span').textContent = store["precioTotal"]
+        //Reuse quantity of items and total to pay
+        shoppingCartButton.querySelector('div').textContent = store["totalItems"]
+        shoppingCartButton.querySelector('span').textContent = store["totalPrice"]
     }  
 }
 
-//Mostrar Footer Carrito
-const mostrarFooter = () => {
+//Show footer of shopping cart
+const showFooter = () => {
     footer.innerHTML = ''
     
-    if (Object.keys(carrito).length === 0) {
+    if (Object.keys(shoppingCart).length === 0) {
         footer.innerHTML = `
         <th scope="row" colspan="5">Tu carrito aún está vacío. Comienza a llenarlo.</th>
         `  
         return   
     } 
 
-    // sumar cantidad y sumar totales
-    const nCantidad = Object.values(carrito).reduce((acc, { cantidad }) => acc + cantidad, 0)
-    const nPrecio = Object.values(carrito).reduce((acc, {cantidad, precio}) => acc + cantidad * precio ,0)
+    // Calculate the sum of quantities and totals
+    const nQuantity= Object.values(shoppingCart).reduce((acc, { quantity }) => acc + quantity, 0)
+    const nPrice= Object.values(shoppingCart).reduce((acc, {quantity, price}) => acc + quantity * price ,0)
 
-    // guardar cantidad y total a pagar 
-    store['itemsTotal']=nCantidad
-    store['precioTotal']=nPrecio
+    // Save quantities and totals
+    store['totalItems']= nQuantity
+    store['totalPrice']= nPrice
     
-
-    templateFooter.querySelectorAll('td')[0].textContent = store["itemsTotal"]
-    templateFooter.querySelector('span').textContent = store["precioTotal"]
+    templateFooter.querySelectorAll('td')[0].textContent = store["totalItems"]
+    templateFooter.querySelector('span').textContent = store["totalPrice"]
     const clone = templateFooter.cloneNode(true)
     fragment.appendChild(clone)
 
     footer.appendChild(fragment)
 
-    const boton = document.querySelector('#vaciar-carrito')
-    boton.addEventListener('click', () => {
-        carrito = {}
-        mostrarCarrito()
+    const emptyCartButton = document.querySelector('#empty-cart')
+    emptyCartButton.addEventListener('click', () => {
+        shoppingCart = {}
+        showShoppingCart()
     })
 }
 
-//Botones de Carrito
-
-const btnAumentarDisminuir = e => {
+//Control Buttons, increase and decrease number of items
+const controlButtons = e => {
     if (e.target.classList.contains('btn-danger')) {
-        const producto = carrito[e.target.dataset.id]
-        producto.cantidad++
-        carrito[e.target.dataset.id] = { ...producto } 
-        mostrarCarrito()
+        const product = shoppingCart[e.target.dataset.id]
+        product.quantity++
+        shoppingCart[e.target.dataset.id] = { ...product } 
+        showShoppingCart()
     }
 
     if (e.target.classList.contains('btn-dark')) {
-        const producto = carrito[e.target.dataset.id]
-        producto.cantidad--
-        producto.cantidad === 0 ? (delete carrito[e.target.dataset.id]) : (carrito[e.target.dataset.id] = {...producto})
+        const product = shoppingCart[e.target.dataset.id]
+        product.quantity--
+        product.quantity === 0 ? (delete shoppingCart[e.target.dataset.id]) : (shoppingCart[e.target.dataset.id] = {...product})
 
-        mostrarCarrito()
+        showShoppingCart()
     }
     e.stopPropagation()
 }
 
-//Display and close Shopping Cart
-
+//Display and close Shopping Cart Sidebar
 const displayShoppingCart = () => {
-    document.getElementById("shopping-cart__resume").style.display = "block";
+    document.getElementById("sidebar").style.display = "block";
   }
 
 const closeShoppingCart = () => {
-    document.getElementById("shopping-cart__resume").style.display = "none";
+    document.getElementById("sidebar").style.display = "none";
 }
 
-// Carrito Vacío
-const carritoVacíoAlert = () => {
+// Epmty Shopping Cart
+const emptyCartAlert = () => {
     Swal.fire(
         'Tu carrito está vacío',
         '¡Continúa comprando!',
@@ -186,16 +172,16 @@ const carritoVacíoAlert = () => {
       ) 
 }
 
-// Traer articles con Fetch Data
+// Get articles with Fetch Data
 fetch('./api/articles.json')
-    .then((respuesta) => respuesta.json())
+    .then((response) => response.json())
 
     .then((data) => {
-        mostrarArticles(data)
+        showArticles(data)
     } )
 
-// Mostrar Articles
-const mostrarArticles = data => {
+// Show Articles
+const showArticles = data => {
     data.forEach(item => {
         templateArticle.querySelector('h5').textContent = item.title
         templateArticle.querySelector('p').textContent = item.source
@@ -207,13 +193,17 @@ const mostrarArticles = data => {
     articles.appendChild(fragment)
 }
 
-//Close Whatsapp
+//Close Banner
+const closeBanner = () => {
+    document.getElementById("banner").style.display = "none";
+}
+
+//Close Whatsapp Floating Button
 const closeWhatsapp = () => {
     document.getElementById("contact").style.display = "none";
 }
 
 //  Slider Banner
-
 const slider = document.querySelector("#slider");
 let sliderSection = document.querySelectorAll(".slider__section");
 let sliderSectionLast = sliderSection[sliderSection.length -1];
@@ -286,33 +276,33 @@ const openTab = (evt, tabName) => {
   //Validate inputs of login form
   const email = document.getElementById('email')
   const password = document.getElementById('password')
-  const form = document.getElementById('validarDatos')
-  const parrafo = document.getElementById('warnings')
+  const form = document.getElementById('validateDatos')
+  const warningsBox = document.getElementById('warnings')
 
   form.addEventListener("submit", e=>{
       e.preventDefault()
       let warnings = ""
-      let entrar = false
+      let show = false
       let regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/
-      parrafo.innerHTML = ""
+      warningsBox.innerHTML = ""
 
     //   if(nombre.value.length < 6) {
     //       warnings += `El nombre no es valido <br>`
-    //       entrar = true
+    //       show = true
     //   }
 
       if(!regexEmail.test(email.value)){
           warnings += `El email no es válido. <br>`
-          entrar = true
+          show = true
       }
       if(password.value.length < 8){
           warnings += `La contraseña debe contener mínimo 8 caracteres.`
-          entrar = true
+          show = true
       }
-      if (entrar) {
-          parrafo.innerHTML = warnings
+      if (show) {
+          warningsBox.innerHTML = warnings
         }
     //   else {
-    //       parrafo.innerHTML = "Enviado"
+    //       warningsBox.innerHTML = "Enviado"
     //   }
   })

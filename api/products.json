@@ -1,38 +1,38 @@
 [
   {
-    "precio": 130,
+    "price": 130,
     "id": 1,
-    "title": "Carrete Principiante Spinning 4000",
+    "title": "Carrete Spinning 4000",
     "thumbnailUrl": "https://img.freepik.com/foto-gratis/manos-sostienen-cana-pescar-telon-fondo-costa-mar_151013-34128.jpg"
   },
   {
-    "precio": 138,
+    "price": 138,
     "id": 2,
     "title": "Carrete Kaida Bw3000",
     "thumbnailUrl": "https://img.freepik.com/foto-gratis/manos-sostienen-cana-pescar-telon-fondo-costa-mar_151013-34128.jpg"
   },
   {
-    "precio": 117,
+    "price": 117,
     "id": 3,
-    "title": "Caña Shakespeare Excursion 1.98Mt",
+    "title": "Caña Shakespeare Excursion",
     "thumbnailUrl": "https://img.freepik.com/foto-gratis/manos-sostienen-cana-pescar-telon-fondo-costa-mar_151013-34128.jpg"
   },
   {
-    "precio": 36,
+    "price": 36,
     "id": 4,
     "title": "Jig Sling Angler 50gr",
     "thumbnailUrl": "https://img.freepik.com/foto-gratis/manos-sostienen-cana-pescar-telon-fondo-costa-mar_151013-34128.jpg"
   },
   {
-    "precio": 13,
+    "price": 13,
     "id": 5,
-    "title": "Señuelo Huiping Sinking 5cm 6gr",
+    "title": "Señuelo Huiping Sinking 6gr",
     "thumbnailUrl": "https://img.freepik.com/foto-gratis/manos-sostienen-cana-pescar-telon-fondo-costa-mar_151013-34128.jpg"
   },
   {
-    "precio": 13,
+    "price": 13,
     "id": 6,
-    "title": "Cabeza Jig Hunthouse – 25gr",
+    "title": "Cabeza Jig Hunthouse 25gr",
     "thumbnailUrl": "https://img.freepik.com/foto-gratis/manos-sostienen-cana-pescar-telon-fondo-costa-mar_151013-34128.jpg"
   }
 ]
