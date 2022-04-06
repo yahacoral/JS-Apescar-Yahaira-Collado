@@ -422,8 +422,7 @@ img {
 }
 
 /* Login/Register Modal */
-.login-form,
-.signup-form {
+.form-design {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -485,7 +484,6 @@ span.password a:hover,
   text-align: center;
   margin: auto;
   color: #dc3545;
-  padding-top: 20px;
 }
 
 /* Modal (background) */
@@ -505,7 +503,7 @@ span.password a:hover,
 /* Modal Content/Box */
 .modal-box {
   background-color: #fefefe;
-  margin: 9rem auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  margin: 4rem auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
   width: 50vw;
   border-radius: 0.5rem;
 }
@@ -539,8 +537,8 @@ span.password a:hover,
 /* The Close Button (x) */
 .close {
   position: absolute;
-  top: 9rem;
-  right: 20%;
+  top: 4rem;
+  right: 25%;
   color: white;
   font-size: 35px;
   font-weight: bold;
@@ -550,4 +548,36 @@ span.password a:hover,
 .close:focus {
   color: #dc3545;
   cursor: pointer;
+}
+
+/* Account Dropdown */
+.dropdown {
+  position: relative;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  color: black;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+  position: absolute;
+  top: 1.5rem;
+  right: 0;
 }

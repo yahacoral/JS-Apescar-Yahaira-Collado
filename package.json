@@ -1,0 +1,23 @@
+{
+  "name": "js-28160-yahaira-collado-apescar",
+  "version": "1.0.0",
+  "main": "script.js",
+  "scripts": {
+    "server": "json-server --watch ./db/db.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yahacoral/JS-Apescar-Yahaira-Collado.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yahacoral/JS-Apescar-Yahaira-Collado/issues"
+  },
+  "homepage": "https://github.com/yahacoral/JS-Apescar-Yahaira-Collado#readme",
+  "description": "",
+  "dependencies": {
+    "json-server": "^0.17.0"
+  }
+}
