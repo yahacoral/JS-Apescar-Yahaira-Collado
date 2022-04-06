@@ -144,7 +144,7 @@ const showFooter = () => {
     const checkoutButton = document.querySelector('#checkout')
     checkoutButton.addEventListener('click', () =>{
         createOrder()
-        showPaymentMethods()
+        showPaymentMethods ()
         shoppingCart = {}
         showShoppingCart()
     })

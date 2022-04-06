@@ -17,6 +17,12 @@
       "email": "test@test.com",
       "password": "0987654",
       "id": 3
+    },
+    {
+      "username": "Yahaira Collado",
+      "email": "yahairavittoria@gmail.com",
+      "password": "123456",
+      "id": 4
     }
   ],
   "orders": [
@@ -45,27 +51,6 @@
       "products[5][id]": "5",
       "products[5][quantity]": "1",
       "id": 2
-    },
-    {
-      "products[5][title]": "Señuelo Huiping Sinking 6gr",
-      "products[5][price]": "13",
-      "products[5][id]": "5",
-      "products[5][quantity]": "1",
-      "id": 3
-    },
-    {
-      "products[2][title]": "Carrete Kaida Bw3000",
-      "products[2][price]": "138",
-      "products[2][id]": "2",
-      "products[2][quantity]": "1",
-      "id": 4
-    },
-    {
-      "products[2][title]": "Carrete Kaida Bw3000",
-      "products[2][price]": "138",
-      "products[2][id]": "2",
-      "products[2][quantity]": "1",
-      "id": 5
     }
   ]
 }
