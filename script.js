@@ -128,11 +128,52 @@ const showFooter = () => {
 
     footer.appendChild(fragment)
 
+    // Empty Cart
     const emptyCartButton = document.querySelector('#empty-cart')
     emptyCartButton.addEventListener('click', () => {
         shoppingCart = {}
         showShoppingCart()
+        Swal.fire(
+            'Tu carrito está vacío',
+            '¡Continúa comprando!',
+            'warning'
+          ) 
     })
+
+    // Checkout
+    const checkoutButton = document.querySelector('#checkout')
+    checkoutButton.addEventListener('click', () =>{
+        createOrder()
+        showPaymentMethods()
+        shoppingCart = {}
+        showShoppingCart()
+    })
+
+    const createOrder = () => {
+        let order = {
+            products: shoppingCart
+        }
+        newOrder(order)
+    }
+    function newOrder(data){
+        $.ajax({
+            method: "POST",
+            url: "http://localhost:3000/orders",
+            data: data
+        })
+    }
+
+    const showPaymentMethods = () => {
+        Swal.fire({
+            title: 'Su orden ha sido creada',
+            text: 'En breve un asesor de venta se comunicará contigo para finalizar la compra. Deberás mostrar tu voucher de pago.',
+            imageUrl: "./assets/img/cuentas.png",
+            imageWidth: 400,
+            imageHeight: 200,
+            imageAlt: 'Payment Methods',
+            showCloseButton: true
+        })
+    }
 }
 
 //Control Buttons, increase and decrease number of items
@@ -161,15 +202,6 @@ const displayShoppingCart = () => {
 
 const closeShoppingCart = () => {
     document.getElementById("sidebar").style.display = "none";
-}
-
-// Epmty Shopping Cart
-const emptyCartAlert = () => {
-    Swal.fire(
-        'Tu carrito está vacío',
-        '¡Continúa comprando!',
-        'warning'
-      ) 
 }
 
 // Get articles with Fetch Data
@@ -271,38 +303,66 @@ const openTab = (evt, tabName) => {
     }
     document.getElementById(tabName).style.display = "block";
     evt.currentTarget.className += " w3-red";
-  }
+}
 
-  //Validate inputs of login form
-  const email = document.getElementById('email')
-  const password = document.getElementById('password')
-  const form = document.getElementById('validateDatos')
-  const warningsBox = document.getElementById('warnings')
+//Login and Register
+$("#signup-form").on("submit", data => {
+    
+    let username = data.target[0].value
+    let usernameLenght = data.target[0].value.length
+    let email = data.target[1].value
+    let password = data.target[2].value
+    let passwordLenght = data.target[2].value.length
+    let confirmPassword = data.target[3].value
+    let regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/
 
-  form.addEventListener("submit", e=>{
-      e.preventDefault()
-      let warnings = ""
-      let show = false
-      let regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/
-      warningsBox.innerHTML = ""
+    // Validate inputs
+    if(usernameLenght < 4) {
+        showWarning();
+        return false
+    } 
+    if((email == "") || (!regexEmail.test(email))) {
+        showWarning();
+        return false
+    }
+    if(passwordLenght < 6) {
+        showWarning();
+        return false
+    }
+    if((confirmPassword == "") || (confirmPassword != password)) {
+        showWarning();
+        return false
+    }
+    // Register
+    if(true) {
+        let dataUser = {
+            username: username,
+            email: email,
+            password: password
+    }
+        signup(dataUser)
+    }
+})
 
-    //   if(nombre.value.length < 6) {
-    //       warnings += `El nombre no es valido <br>`
-    //       show = true
-    //   }
-
-      if(!regexEmail.test(email.value)){
-          warnings += `El email no es válido. <br>`
-          show = true
-      }
-      if(password.value.length < 8){
-          warnings += `La contraseña debe contener mínimo 8 caracteres.`
-          show = true
-      }
-      if (show) {
-          warningsBox.innerHTML = warnings
+function signup(data){
+    $.ajax({
+        method: "POST",
+        url: "http://localhost:3000/users",
+        data: data,
+        success: function(){
+            Swal.fire({
+                icon: 'success',
+                title: 'Te damos la bienvenida',
+                text: 'Tu cuenta se ha creado correctamente'
+              })
         }
-    //   else {
-    //       warningsBox.innerHTML = "Enviado"
-    //   }
-  })
+    })
+}
+
+function showWarning(){
+    Swal.fire({
+        icon: 'error',
+        title: 'Ha ocurrido un error',
+        text: 'Por favor, ingresar datos válidos.'
+    })
+}

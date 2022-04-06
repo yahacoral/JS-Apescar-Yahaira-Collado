@@ -21,6 +21,9 @@
     <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-bootstrap-4/bootstrap-4.css" rel="stylesheet">
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
 
+    <!-- Jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 </head>
 <body>
     <header class="header">
@@ -38,19 +41,30 @@
         <a class="main-header__logo" href="#"><img src="./assets/img/logo.png" alt="brand logo"></a>
 
         <span>
-        <!-- Login/Register Button -->
-        <button class="main-header__btn account" onclick="document.getElementById('modal').style.display='block'" style="width:auto;" >
-          <i class="fas fa-user"></i> Mi cuenta
-          <i class="fas fa-angle-down"></i>
-        </button>
+          <!-- Login/Register Button -->
+          <button id="account-btn" class="main-header__btn account" onclick="document.getElementById('modal').style.display='block'" style="width:auto;" >
+            <i class="fas fa-user"></i> Mi cuenta
+            <i class="fas fa-angle-down"></i>
+          </button>
 
-        <!-- Shopping Cart Button -->
-        <button class="main-header__btn" id="shopping-cart__btn" onclick="displayShoppingCart()">
-          <i class="fas fa-shopping-cart"></i>  S/. <span></span>
-          <div class="items-counter"></div>
-          <i class="fas fa-angle-down"></i>
+          <!-- <div id="account-dropdown" class="dropdown" style="display: none;">
+            <button class="main-header__btn account">
+              <i class="fas fa-user"></i>
+              <span id="username">Yahaira Collado</span>
+              <i class="fas fa-angle-down"></i>
+            </button>
+            <div class="dropdown-content">
+              <a href="#">Mis pedidos</a>
+            </div>
+          </div> -->
+
+          <!-- Shopping Cart Button -->
+          <button class="main-header__btn" id="shopping-cart__btn" onclick="displayShoppingCart()">
+            <i class="fas fa-shopping-cart"></i>  S/. <span></span>
+            <div class="items-counter"></div>
+            <i class="fas fa-angle-down"></i>
           </button>  
-       </span>       
+        </span>       
       </div>
 
       <!-- Header Navigation -->
@@ -176,10 +190,10 @@
             <th scope="row" colspan="2">Total a pagar:</th>
             <td >10</td>
             <td class="template-footer__btn"> 
-                <button class="btn btn-danger btn-sm btn-block" id="comprar-ahora">
+                <button class="btn btn-danger btn-sm btn-block" id="checkout">
                   COMPRAR
               </button>
-              <button class="btn btn-dark btn-sm btn-block" id="empty-cart" onclick="emptyCartAlert()">
+              <button class="btn btn-dark btn-sm btn-block" id="empty-cart">
                 VACIAR
             </button>
             </td>
@@ -280,8 +294,8 @@
             Lunes a Viernes de 10am a 6pm
             </li>
             <br>
-            <li><b>Teléfonos:</b>
-            (01) 688 8X73 | (+51) 97X27X526
+            <li><b>Atención al cliente</b>
+            (+51) 97X27X526 | apescar@hola.com
             </li>
             <br>
             <li><b>Dirección:</b>
@@ -311,91 +325,77 @@
         
         <!-- Tabs -->
         <div class="modal-box__tabs">
-          <button class="tablink w3-red" onclick="openTab(event,'login')">Iniciar Sesión</button>
+          <button class="tablink w3-red" onclick="openTab(event,'login-tab')">Iniciar Sesión</button>
 
-          <button class="tablink" onclick="openTab(event,'signup')">Registrarme</button>
+          <button class="tablink" onclick="openTab(event,'signup-tab')">Registrarme</button>
         </div>
 
         <!-- Login Content -->
-        <div id="login" class="tab">
-
-          <form id="validateDatos" class="login-form" action="" method="POST">
+        <div id="login-tab" class="tab">
+          <form id="login-form" class="form-design" action="javascript:void(0)" method="POST">
 
               <div class="field">
                 <label for="email"><b>Correo Electrónico:</b></label>
-                <input type="text" id="email" name="email" placeholder="Ingresar correo electrónico">
+                <input type="text" id="login-email" name="email" placeholder="Ingresar correo electrónico">
               </div>
         
               <div class="field">
                 <label for="password"><b>Contraseña:</b></label>
-                <input type="password" id="password" name="password" placeholder="Ingresar contraseña.  Mínimo 8 caracteres.">
+                <input type="password" id="login-password" name="password" placeholder="Ingresar contraseña.  Mínimo 6 caracteres.">
               </div>
-              
-              <!-- Remember me -->
-                <label class="remember-account">
-                  <input type="checkbox" checked="checked" name="remember">&nbsp;Recordar cuenta
-                </label>
                 
               <!-- Login Button -->
               <button type="submit" class="login-btn">Iniciar Sesión</button>
             
               <!-- Forgot Password -->
-             <span class="password"><a href="">¿Olvidaste tu contraseña?</a></span>
+             <span class="password">¿Olvidaste tu contraseña?
+               <a href="https://wa.link/du6cc9" target="_blank">Contacta a soporte</a>
+              </span>
 
-             <p class="warnings" id="warnings"></p>
-
+             <p class="warnings" id="login-warnings"></p>
           </form>
         </div>
 
         <!-- Sign Up Content -->
-        <div  id="signup" class="tab" style="display:none">
-          <form id="registrarDatos" class="signup-form" action="" method="POST">
-            <div class="group">
-              <div class="field">
-                <label for="name"><b>Nombre:</b></label>
-                <input type="text" id="name" name="name" placeholder="Ingresar primer nombre">
-              </div>
+        <div  id="signup-tab" class="tab" style="display:none">
+          <form id="signup-form" class="form-design" action="javascript:void(0)" method="POST">
 
-              <div class="field">
-                <label for="fullname"><b>Apellidos:</b></label>
-                <input type="text" id="fullname" name="fullname" placeholder="Ingresar apellidos">
-              </div>
+            <div class="field">
+              <label for="username"><b>Nombre de usuario:</b></label>
+              <input type="text" id="username" name="username" placeholder="Mínimo 4 caracteres">
             </div>
             
             <div class="field">
               <label for="email"><b>Correo Electrónico:</b></label>
               <input type="text" id="email" name="email" placeholder="Ingresar correo electrónico">
             </div>
+
             <div class="group">
               <div class="field">
-              <label for="password"><b>Contraseña nueva:</b></label>
-              <input type="password" id="password" name="password" placeholder="Mínimo 8 caracteres.">
+              <label for="password"><b>Contraseña:</b></label>
+              <input type="password" id="password" name="password" placeholder="Mínimo 6 caracteres">
             </div>
 
             <div class="field">
               <label for="password"><b>Confirmación:</b></label>
-              <input type="password" id="password" name="password" placeholder="Repetir contraseña nueva">
+              <input type="password" id="confirm-password" name="confirm-password" placeholder="Repetir contraseña nueva">
             </div>
             </div>
 
             <!-- Terms and Conditions-->
             <label class="terms">
-              <input type="checkbox" checked="checked" name="terms">&nbsp; Acepto las &nbsp;<a href="" target="_blank">políticas de uso de datos personales.</a>
+              <input type="checkbox" checked="checked" name="terms" required>&nbsp; Acepto las &nbsp;<a href="" target="_blank">políticas de uso de datos personales.</a>
             </label>
 
             <!-- Signup Button -->
             <button type="submit" class="signup-btn">Crear Cuenta</button>
 
-            <!-- Help -->
-            <span class="password"><a href="https://wa.link/du6cc9" target="_blank">¿Necesitas ayuda?</a></span>
-            
+            <p class="warnings" id="signup-warnings"></p>
           </form>
         </div>
-
       </div>
     </div>
 
-    <script src="script.js"></script>
-
+    <script src="script.js"></script>\
 </body>
 </html>
